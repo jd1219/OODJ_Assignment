@@ -4,6 +4,9 @@
  */
 package com.mycompany.oodj_assignment;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author User
@@ -15,8 +18,28 @@ public class SalesPanel extends javax.swing.JFrame {
      */
     public SalesPanel() {
         initComponents();
+        int width = 439;  // desired width of the frame
+        int height = 404; // desired height of the frame
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - width) / 2;
+        int y = (screenSize.height - height) / 2;
+        setBounds(x, y, width, height);
+        
+     
     }
-
+    
+    private String[] row;
+    public SalesPanel(String[] row){
+        this.row = row;
+        initComponents();
+        int width = 439;  // desired width of the frame
+        int height = 404; // desired height of the frame
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - width) / 2;
+        int y = (screenSize.height - height) / 2;
+        setBounds(x, y, width, height);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +49,187 @@ public class SalesPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel7 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        lbWelcome = new javax.swing.JLabel();
+        btManageProfile = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btManageSales = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        btListAllOrders = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Salesperson Page");
+        setResizable(false);
+        setSize(new java.awt.Dimension(408, 333));
+
+        jPanel7.setBackground(new java.awt.Color(204, 255, 255));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 361, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel7, java.awt.BorderLayout.WEST);
+
+        jPanel6.setBackground(new java.awt.Color(204, 255, 255));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 361, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel6, java.awt.BorderLayout.EAST);
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jButton1.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        jButton1.setText("Logout");
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 439, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setLayout(new java.awt.GridLayout(7, 1));
+
+        lbWelcome.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        lbWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbWelcome.setText("Welcome");
+        jPanel3.add(lbWelcome);
+
+        btManageProfile.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        btManageProfile.setText("Manage Personal Profile");
+        btManageProfile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btManageProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btManageProfile.setFocusPainted(false);
+        btManageProfile.setFocusable(false);
+        btManageProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btManageProfileActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btManageProfile);
+
+        jPanel5.setBackground(new java.awt.Color(204, 255, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel5);
+
+        btManageSales.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        btManageSales.setText("Manage Sales Order");
+        btManageSales.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btManageSales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btManageSales.setFocusPainted(false);
+        btManageSales.setFocusable(false);
+        btManageSales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btManageSalesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btManageSales);
+
+        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel4);
+
+        btListAllOrders.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        btListAllOrders.setText("List All Personal Sales Order");
+        btListAllOrders.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btListAllOrders.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btListAllOrders.setFocusPainted(false);
+        btListAllOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListAllOrdersActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btListAllOrders);
+
+        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btManageSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageSalesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btManageSalesActionPerformed
+
+    private void btListAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListAllOrdersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btListAllOrdersActionPerformed
+
+    private void btManageProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageProfileActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        PersonalProfile pf = new PersonalProfile(row);
+        pf.setVisible(true);
+    }//GEN-LAST:event_btManageProfileActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Login lg = new Login();
+        lg.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +267,17 @@ public class SalesPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btListAllOrders;
+    private javax.swing.JButton btManageProfile;
+    private javax.swing.JButton btManageSales;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbWelcome;
     // End of variables declaration//GEN-END:variables
 }

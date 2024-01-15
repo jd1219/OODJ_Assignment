@@ -25,7 +25,7 @@ public class User {
         this.username = username;
         this.password = password;
     }    
-    public String verifyAccount() throws IOException{
+    public String[] verifyAccount() throws IOException{
         
         // Read file to verify account
         String filepath = ("Accounts.txt");
@@ -38,9 +38,8 @@ public class User {
             String line;
             while((line = br.readLine()) != null){
                 String[] row = line.split(",");
-                if (username.equals(row[0]) && password.equals(row[1])) {
-                    access = row[2];
-                    return access;
+                if (password.equals(row[1]) && username.equals(row[0])) {
+                    return row;
                 }
             }
         } catch (FileNotFoundException ex) {

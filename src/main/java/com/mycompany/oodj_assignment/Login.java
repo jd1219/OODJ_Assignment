@@ -6,10 +6,6 @@ package com.mycompany.oodj_assignment;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +42,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        passInput = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -54,6 +49,8 @@ public class Login extends javax.swing.JFrame {
         userInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        passInput = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Page");
@@ -66,13 +63,6 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        passInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passInputActionPerformed(evt);
-            }
-        });
-        jPanel1.add(passInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 178, 33));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText(":");
@@ -107,25 +97,45 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 190, 50));
 
+        passInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passInputActionPerformed(evt);
+            }
+        });
+        jPanel1.add(passInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 180, 40));
+
+        jButton2.setBackground(new java.awt.Color(204, 255, 255));
+        jButton2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 102, 102));
+        jButton2.setText("Forget Password? Click Me");
+        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 260, -1));
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 700, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void passInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passInputActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        User user = new User(userInput.getText(),passInput.getText());
+        User user;
+        char [] x = passInput.getPassword();
+        String password = new String (x);
+        user = new User(userInput.getText(),password);
+
         try {
-            var access = user.verifyAccount();
-            if((access != null)){
+            String [] row = user.verifyAccount();
+            if((row != null)){
                 setVisible(false);
                 JOptionPane.showMessageDialog(null,"Login Successfully","Notice",JOptionPane.INFORMATION_MESSAGE);
-                switch (access) {
+                switch (row[row.length - 1]) {
                     case "a":
                         AdminPanel ap = new AdminPanel();
                         ap.setVisible(true);
@@ -135,7 +145,7 @@ public class Login extends javax.swing.JFrame {
                         of.setVisible(true);
                         break;
                     case "s":
-                        SalesPanel sp = new SalesPanel();
+                        SalesPanel sp = new SalesPanel(row);
                         sp.setVisible(true);
                         break;
                     default:
@@ -148,6 +158,15 @@ public class Login extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void passInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passInputActionPerformed
+        
+    }//GEN-LAST:event_passInputActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String userfrgt = JOptionPane.showInputDialog(null,"Please enter your username");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,13 +206,14 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField passInput;
+    private javax.swing.JPasswordField passInput;
     private javax.swing.JTextField userInput;
     // End of variables declaration//GEN-END:variables
 }
