@@ -709,10 +709,12 @@ public class PersonalProfile extends javax.swing.JFrame {
             String newAge = tfAge.getText();
             String newGender = tfGender.getText();
             String newContact = tfContact.getText();
+            String accesslevel = tfAccess.getText();
+            String accessLevel = (accesslevel.equals("Sales Person")) ? "s" : (accesslevel.equals("Admin")) ? "s" : "o";
             
             // to prevent the new detail is empty
             if(!newPassword.isEmpty() && !newUsername.isEmpty() && !newEmail.isEmpty() && !newAge.isEmpty() && !newGender.isEmpty() && !newContact.isEmpty()){
-                String [] newRow = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact};
+                String [] newRow = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact,accessLevel};
                 try {
                     updateDetails(newRow);
                 } catch (IOException ex) {

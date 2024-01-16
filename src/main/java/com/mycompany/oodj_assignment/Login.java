@@ -149,7 +149,8 @@ public class Login extends javax.swing.JFrame {
                         sp.setVisible(true);
                         break;
                     default:
-                        break;
+                        JOptionPane.showMessageDialog(null, "Identity Error");
+                        setVisible(true);
                 }
             }else{
                 JOptionPane.showMessageDialog(null,"Login Failed","Notice",JOptionPane.INFORMATION_MESSAGE);
