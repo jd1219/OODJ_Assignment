@@ -5,7 +5,19 @@
 package com.mycompany.oodj_assignment;
 
 import java.awt.Dimension;
+import java.util.List;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -71,11 +83,38 @@ public class PersonalProfile extends javax.swing.JFrame {
     }
     
     
-    private void updateDetails(String[] newRow){
+    private void updateDetails(String[] newRow) throws IOException{
         this.newRow = newRow;
+        System.out.println(Arrays.toString(newRow)); // to see what data is really taking
         
+        // Read file
+        String filepath = ("Accounts.txt");
+        File file = new File(filepath);
+        List<String> lines = new ArrayList<>();
+        try{
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while((line = br.readLine()) != null){
+                lines.add(line);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(int i = 0;i < lines.size(); i++){
+            String[] elements = lines.get(i).split(",");
+            if(elements.length > 2 && elements[2].equals(newRow[2])){
+                lines.set(i, String.join(",",newRow));
+                break;
+            }
+        }
         
-        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))){
+            for(String line : lines){
+                bw.write(line);
+                bw.newLine();
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -673,8 +712,12 @@ public class PersonalProfile extends javax.swing.JFrame {
             
             // to prevent the new detail is empty
             if(!newPassword.isEmpty() && !newUsername.isEmpty() && !newEmail.isEmpty() && !newAge.isEmpty() && !newGender.isEmpty() && !newContact.isEmpty()){
-                String[] newRow = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact};
-                updateDetails(newRow);
+                String [] newRow = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact};
+                try {
+                    updateDetails(newRow);
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonalProfile.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "Please do not leave new password blank", newPassword, HEIGHT);
             }
