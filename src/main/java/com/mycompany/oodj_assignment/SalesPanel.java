@@ -28,16 +28,12 @@ public class SalesPanel extends javax.swing.JFrame {
      
     }
     
-    private String[] row;
+    private static String[] row;
+    private String pID;
     public SalesPanel(String[] row){
-        this.row = row;
+        SalesPanel.row = row;
         initComponents();
-        int width = 439;  // desired width of the frame
-        int height = 404; // desired height of the frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - width) / 2;
-        int y = (screenSize.height - height) / 2;
-        setBounds(x, y, width, height);
+        setLocationRelativeTo(null);
     }
     
     /**
@@ -211,6 +207,9 @@ public class SalesPanel extends javax.swing.JFrame {
 
     private void btManageSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageSalesActionPerformed
         // TODO add your handling code here:
+        salesManageSales sms = new salesManageSales(SalesPanel.row);
+        setVisible(false);
+        sms.setVisible(true);
     }//GEN-LAST:event_btManageSalesActionPerformed
 
     private void btListAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListAllOrdersActionPerformed
