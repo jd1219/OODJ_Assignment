@@ -4,6 +4,8 @@
  */
 package com.mycompany.oodj_assignment;
 
+import java.util.Arrays;
+
 /**
  *
  * @author User
@@ -21,6 +23,7 @@ public class salesManageSales extends javax.swing.JFrame {
     
     public salesManageSales(String[] row) {
         salesManageSales.row = row;
+        System.out.println(Arrays.toString(row));
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -153,6 +156,11 @@ public class salesManageSales extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe Print", 2, 18)); // NOI18N
         jButton3.setText("Modify");
         jButton3.setFocusPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
 
         jPanel7.setBackground(new java.awt.Color(204, 255, 255));
@@ -213,6 +221,13 @@ public class salesManageSales extends javax.swing.JFrame {
         createSalesOrder create = new createSalesOrder(salesManageSales.row);
         create.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        modifySalesOrder mso = new modifySalesOrder(salesManageSales.row);
+        mso.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

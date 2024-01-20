@@ -7,13 +7,19 @@ package com.mycompany.oodj_assignment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,9 +37,11 @@ public class createSalesOrder extends javax.swing.JFrame {
     }
     
     private static String[] row;
+    
     private List<String[]> allLines = new ArrayList<>();
     public createSalesOrder(String[] row) {
         initComponents();
+        createSalesOrder.row = row;
         setLocationRelativeTo(null);
         tableInitialize();
 
@@ -123,6 +131,8 @@ public class createSalesOrder extends javax.swing.JFrame {
         tfProductID.setText("");
         tfPrice.setText("");
         cbProduct.setSelectedIndex(-1);
+        spinQuantity.setValue(1);
+        
     }
     
     private void tableInitialize(){
@@ -132,6 +142,55 @@ public class createSalesOrder extends javax.swing.JFrame {
         orderTable.getColumnModel().getColumn(3).setPreferredWidth(80);  // Price
         orderTable.getColumnModel().getColumn(4).setPreferredWidth(80);  // Quantity
 
+    }
+    
+     private static int countRows(String filePath) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String knp;
+            int count = 0;
+            while ((knp = br.readLine()) != null) {
+                System.out.println(knp);
+                count++;
+            }
+            return count;
+        }
+    }
+     
+    private static String generateNextSOID(String salesPersonID) throws IOException{
+        String salesOrderIDFormat = salesPersonID + "%04d";
+        String salesOrderFilePath = "SalesOrder.txt";
+
+        int nextSalesOrderNumber = 1;
+        int rowCount = countRows("SalesOrder.txt");
+        System.out.println("Row count: " + rowCount);
+        File salesOrderFile = new File(salesOrderFilePath);
+
+        if (salesOrderFile.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(salesOrderFile))) {
+                String line;
+                System.out.println("Line 169 is in");
+                while ((line = br.readLine()) != null) {
+                    System.out.println("I came in dy");
+                    String regex = Pattern.quote(salesPersonID) + "(\\d+)";
+                    Pattern pattern = Pattern.compile(regex);
+                    Matcher matcher = pattern.matcher(line);
+
+                    System.out.println("salesPersonID: " + salesPersonID);
+                    System.out.println("salesOrderIDFormat: " + salesOrderIDFormat);
+
+                    if (matcher.find()) {
+                        int currentSalesOrderNumber = Integer.parseInt(matcher.group(1));
+                        System.out.println("Matched line: " + line);
+                        System.out.println("Current Sales Order Number: " + currentSalesOrderNumber);
+                        nextSalesOrderNumber = Math.max(nextSalesOrderNumber, currentSalesOrderNumber + 1);
+                    }
+                }
+            }catch (IOException e){
+            }
+            
+        }
+
+        return String.format(salesOrderIDFormat, nextSalesOrderNumber);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -289,6 +348,11 @@ public class createSalesOrder extends javax.swing.JFrame {
         btCreate.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         btCreate.setText("Create");
         btCreate.setFocusPainted(false);
+        btCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreateActionPerformed(evt);
+            }
+        });
         jPanel1.add(btCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 120, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 620));
@@ -328,9 +392,56 @@ public class createSalesOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Something went wrong");
         }
         
-        
-        
+        selectionInitialize();     
     }//GEN-LAST:event_btAddActionPerformed
+
+    private void btCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateActionPerformed
+        // TODO add your handling code here:
+        System.out.println(Arrays.toString(row));
+        SalesPerson sp = new SalesPerson(row[0],row[1],row[3],row[6],row[5],row[4],row[2]);
+        String personalID = sp.getID();
+        
+        DefaultTableModel model = (DefaultTableModel)orderTable.getModel();
+        String filepath = "SalesOrder.txt";
+        Object[] rowData;
+        // loop through the whole table to get the rowData
+        if(model.getRowCount() > 0){
+            try {
+                File file = new File(filepath);
+                FileWriter fw = new FileWriter(file,true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                for(int i = 0; i < model.getRowCount(); i++){
+                    rowData = new Object[model.getColumnCount() - 1];
+                    for(int j = 0; j < model.getColumnCount() - 1; j++){
+                        rowData[j] = model.getValueAt(i,j + 1);
+                    }
+            
+                    try {
+                        String nextSOID = generateNextSOID(personalID);
+                        System.out.println("Sales ID:" + nextSOID);
+
+                        bw.write(nextSOID);
+
+                        for(Object data : rowData){
+                            bw.write("," + data);
+                        }
+                        
+                        bw.write(",Unapproved");
+                        bw.newLine();
+                    }catch (IOException ex){
+                        Logger.getLogger(createSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                bw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(createSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Please Add Products before create Sales Order!");
+        }
+    }//GEN-LAST:event_btCreateActionPerformed
 
     /**
      * @param args the command line arguments

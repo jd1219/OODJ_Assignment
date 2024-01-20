@@ -4,9 +4,6 @@
  */
 package com.mycompany.oodj_assignment;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 /**
  *
  * @author User
@@ -18,12 +15,7 @@ public class SalesPanel extends javax.swing.JFrame {
      */
     public SalesPanel() {
         initComponents();
-        int width = 439;  // desired width of the frame
-        int height = 404; // desired height of the frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - width) / 2;
-        int y = (screenSize.height - height) / 2;
-        setBounds(x, y, width, height);
+        setLocationRelativeTo(null);
         
      
     }

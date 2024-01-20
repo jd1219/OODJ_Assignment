@@ -4,8 +4,6 @@
  */
 package com.mycompany.oodj_assignment;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,12 +22,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        int width = 700;  // desired width of the frame
-        int height = 500; // desired height of the frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - width) / 2;
-        int y = (screenSize.height - height) / 2;
-        setBounds(x, y, width, height);
+        setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -79,6 +73,8 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("STFangsong", 0, 24)); // NOI18N
         jLabel2.setText("Username");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 118, -1));
+
+        userInput.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jPanel1.add(userInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 178, 33));
 
         jLabel1.setFont(new java.awt.Font("STFangsong", 1, 36)); // NOI18N
@@ -97,6 +93,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 190, 50));
 
+        passInput.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         passInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passInputActionPerformed(evt);
