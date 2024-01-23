@@ -42,6 +42,7 @@ public class createSalesOrder extends javax.swing.JFrame {
     public createSalesOrder(String[] row) {
         initComponents();
         createSalesOrder.row = row;
+        System.out.println("Create Sales Order: "+ Arrays.toString(row));
         setLocationRelativeTo(null);
         tableInitialize();
 
@@ -168,9 +169,7 @@ public class createSalesOrder extends javax.swing.JFrame {
         if (salesOrderFile.exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(salesOrderFile))) {
                 String line;
-                System.out.println("Line 169 is in");
                 while ((line = br.readLine()) != null) {
-                    System.out.println("I came in dy");
                     String regex = Pattern.quote(salesPersonID) + "(\\d+)";
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(line);
@@ -363,7 +362,7 @@ public class createSalesOrder extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        salesManageSales sms = new salesManageSales(row);
+        salesManageSales sms = new salesManageSales(createSalesOrder.row);
         sms.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -404,6 +403,7 @@ public class createSalesOrder extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)orderTable.getModel();
         String filepath = "SalesOrder.txt";
         Object[] rowData;
+        String nextSOID = null;
         // loop through the whole table to get the rowData
         if(model.getRowCount() > 0){
             try {
@@ -418,7 +418,7 @@ public class createSalesOrder extends javax.swing.JFrame {
                     }
             
                     try {
-                        String nextSOID = generateNextSOID(personalID);
+                        nextSOID = generateNextSOID(personalID);
                         System.out.println("Sales ID:" + nextSOID);
 
                         bw.write(nextSOID);
@@ -438,6 +438,7 @@ public class createSalesOrder extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(createSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
+            JOptionPane.showMessageDialog(null,"Sales Order ID "+ nextSOID +" has been created!!");
         }else{
             JOptionPane.showMessageDialog(null,"Please Add Products before create Sales Order!");
         }

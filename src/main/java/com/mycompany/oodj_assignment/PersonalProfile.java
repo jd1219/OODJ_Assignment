@@ -31,7 +31,7 @@ public class PersonalProfile extends javax.swing.JFrame {
      * @param row
      */
     
-    private String[] row;    
+    private static String[] row;    
     private String[] newRow;
     
     public PersonalProfile(String[] row) {
@@ -422,7 +422,7 @@ public class PersonalProfile extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        SalesPanel sp = new SalesPanel(row);
+        SalesPanel sp = new SalesPanel(PersonalProfile.row);
         sp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

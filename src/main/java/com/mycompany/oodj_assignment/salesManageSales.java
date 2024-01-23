@@ -23,7 +23,7 @@ public class salesManageSales extends javax.swing.JFrame {
     
     public salesManageSales(String[] row) {
         salesManageSales.row = row;
-        System.out.println(Arrays.toString(row));
+        System.out.println("Manage Sales"+Arrays.toString(row));
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -181,6 +181,11 @@ public class salesManageSales extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe Print", 2, 18)); // NOI18N
         jButton4.setText("Remove");
         jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
 
         jPanel8.setBackground(new java.awt.Color(204, 255, 255));
@@ -201,6 +206,11 @@ public class salesManageSales extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe Print", 2, 18)); // NOI18N
         jButton5.setText("Search");
         jButton5.setFocusPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton5);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -228,6 +238,20 @@ public class salesManageSales extends javax.swing.JFrame {
         modifySalesOrder mso = new modifySalesOrder(salesManageSales.row);
         mso.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        removeSalesOrder rso = new removeSalesOrder(salesManageSales.row);
+        rso.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        searchSalesOrder sso = new searchSalesOrder(salesManageSales.row);
+        sso.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

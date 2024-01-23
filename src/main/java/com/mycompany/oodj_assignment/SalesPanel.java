@@ -206,12 +206,15 @@ public class SalesPanel extends javax.swing.JFrame {
 
     private void btListAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListAllOrdersActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
+        SalesListOrder slo = new SalesListOrder(SalesPanel.row);
+        slo.setVisible(true);
     }//GEN-LAST:event_btListAllOrdersActionPerformed
 
     private void btManageProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManageProfileActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        PersonalProfile pf = new PersonalProfile(row);
+        PersonalProfile pf = new PersonalProfile(SalesPanel.row);
         pf.setVisible(true);
     }//GEN-LAST:event_btManageProfileActionPerformed
 
