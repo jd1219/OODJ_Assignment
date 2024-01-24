@@ -134,11 +134,11 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Login Successfully","Notice",JOptionPane.INFORMATION_MESSAGE);
                 switch (row[row.length - 1]) {
                     case "a":
-                        AdminPanel ap = new AdminPanel();
+                        AdminPanel ap = new AdminPanel(row);
                         ap.setVisible(true);
                         break;
                     case "o":
-                        OfficerPanel of = new OfficerPanel();
+                        OfficerPanel of = new OfficerPanel(row);
                         of.setVisible(true);
                         break;
                     case "s":

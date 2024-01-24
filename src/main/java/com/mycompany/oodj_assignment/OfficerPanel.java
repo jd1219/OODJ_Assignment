@@ -16,7 +16,15 @@ public class OfficerPanel extends javax.swing.JFrame {
     public OfficerPanel() {
         initComponents();
     }
-
+    
+    public static String[] row;
+    
+    public OfficerPanel(String[] row){
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -4,9 +4,7 @@
  */
 package com.mycompany.oodj_assignment;
 
-import java.awt.Dimension;
 import java.util.List;
-import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,16 +33,12 @@ public class PersonalProfile extends javax.swing.JFrame {
     private String[] newRow;
     
     public PersonalProfile(String[] row) {
-        this.row = row;
+        PersonalProfile.row = row;
+        System.out.println("Manage Personal Profile: " + Arrays.toString(row));
         initComponents();
         initializeField();
         setFieldEditable(false);
-        int width = 750;  // desired width of the frame
-        int height = 570; // desired height of the frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - width) / 2;
-        int y = (screenSize.height - height) / 2;
-        setBounds(x, y, width, height);
+        setLocationRelativeTo(null);
     }
     
     public PersonalProfile(){
@@ -56,8 +50,8 @@ public class PersonalProfile extends javax.swing.JFrame {
         tfPassword.setText(row[1]);
         tfPersonalID.setText(row[2]);
         tfEmail.setText(row[3]);
-        tfGender.setText(row[4]);
-        tfAge.setText(row[5]);
+        tfAge.setText(row[4]);
+        tfGender.setText(row[5]);
         tfContact.setText(row[6]);
         String level  = (row[row.length-1].equals("a")) ? "Admin" : 
                         (row[row.length-1].equals("o")) ? "Officer" :
@@ -152,7 +146,7 @@ public class PersonalProfile extends javax.swing.JFrame {
         btEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sales Person Personal Profile");
+        setTitle("Personal Profile");
 
         jPanel18.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -233,15 +227,15 @@ public class PersonalProfile extends javax.swing.JFrame {
 
         lbUsername.setText("Username:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbUsername, gridBagConstraints);
 
         lbEmail.setText("Email:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbEmail, gridBagConstraints);
 
@@ -325,16 +319,16 @@ public class PersonalProfile extends javax.swing.JFrame {
         lbAge.setBackground(new java.awt.Color(204, 255, 255));
         lbAge.setText("Age:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbAge, gridBagConstraints);
 
         lbGender.setBackground(new java.awt.Color(204, 255, 255));
         lbGender.setText("Gender:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbGender, gridBagConstraints);
 
@@ -342,15 +336,15 @@ public class PersonalProfile extends javax.swing.JFrame {
         lbContact.setText("Contact:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbContact, gridBagConstraints);
 
         lbPassword.setBackground(new java.awt.Color(204, 255, 255));
         lbPassword.setText("Password:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         jPanel2.add(lbPassword, gridBagConstraints);
 
@@ -401,10 +395,10 @@ public class PersonalProfile extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(296, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(292, 292, 292)
                 .addComponent(btEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(288, 288, 288))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,8 +416,17 @@ public class PersonalProfile extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        SalesPanel sp = new SalesPanel(PersonalProfile.row);
-        sp.setVisible(true);
+        System.out.println(Arrays.toString(row));
+        if(row[7].equals("s")){
+            SalesPanel sp = new SalesPanel(PersonalProfile.row);
+            sp.setVisible(true);
+        }else if(row[7].equals("a")){
+            AdminPanel ap = new AdminPanel(PersonalProfile.row);
+            ap.setVisible(true);
+        }else if(row[7].equals("o")){
+            OfficerPanel op = new OfficerPanel(PersonalProfile.row);
+            op.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfPersonalIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPersonalIDActionPerformed
@@ -445,7 +448,7 @@ public class PersonalProfile extends javax.swing.JFrame {
             String newGender = tfGender.getText();
             String newContact = tfContact.getText();
             String accesslevel = tfAccess.getText();
-            String accessLevel = (accesslevel.equals("Sales Person")) ? "s" : (accesslevel.equals("Admin")) ? "s" : "o";
+            String accessLevel = (accesslevel.equals("Sales Person")) ? "s" : (accesslevel.equals("Admin")) ? "a" : "o";
             
             // to prevent the new detail is empty
             if(!newPassword.isEmpty() && !newUsername.isEmpty() && !newEmail.isEmpty() && !newAge.isEmpty() && !newGender.isEmpty() && !newContact.isEmpty()){
