@@ -1,3 +1,5 @@
 jeff,123,Adm001,jeff123@gmail.com,21,Male,0129099022,a
-jerry,123,Off001,jerry02@outlook.com,19,Male,01116197868,o
-nepton,123,Sal001,nepton@gmail.com,24,Male,0106009300,s
+jerry,123,Off002,jerry02@outlook.com,19,Male,01116197868,o
+nepto,123,Sal006,nepto@gmail.com,24,Male,0109006300,s
+chelsea,123,Sal001,chelsea@gmail.com,22,Female,0168419371,s
+kelly,123,Sal002,kelly@gmail.com,22,Female,0198323333,s

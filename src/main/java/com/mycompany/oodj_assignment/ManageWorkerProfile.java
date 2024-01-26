@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class ManageWorkerProfile extends javax.swing.JFrame {
 
-    private String[] newRow;
+    private static String[] newRow;
 
     /**
      * Creates new form ManageWorkerProfile
@@ -69,7 +69,6 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
             String line;
             while((line = br.readLine()) != null){
                 String[] lines = line.split(",");
-                
                 
                 if(!lines[lines.length - 1].equals("a") && !lines[2].equals(personalID)){
                     workerIDs.add(lines[2]);
@@ -164,14 +163,15 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         tfLevel.setText("");
     }
     
-    private void updateDetails(String[] newRow) throws IOException{
-        this.newRow = newRow;
+    private void updateAccountDetails(String[] newRow) throws IOException{
+        ManageWorkerProfile.newRow = newRow;
         System.out.println(Arrays.toString(newRow)); // to see what data is really taking
         
         // Read file
         String filepath = ("Accounts.txt");
         File file = new File(filepath);
         List<String> lines = new ArrayList<>();
+        
         try{
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
@@ -196,6 +196,62 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
                 bw.newLine();
             }
         }
+        
+        updateSalesDetails(newRow[2],(String)cbSelect.getSelectedItem());
+    }
+    
+    private void updateSalesDetails(String newpersonalID,String oldpersonalID){
+        System.out.println("Old Personal ID: " + oldpersonalID);
+        System.out.println("New Personal ID: " + newpersonalID);
+        
+        String filepath = "SalesOrder.txt";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            StringBuilder modifiedFileContent = new StringBuilder();
+            
+            String line;
+            while((line = br.readLine()) != null){
+                if(line.contains(oldpersonalID)){
+                    System.out.println("XXX " + line);
+                    line = line.replace(oldpersonalID, newpersonalID);
+                }
+                
+                modifiedFileContent.append(line).append(System.lineSeparator());
+            }
+            
+            try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))){
+                bw.write(modifiedFileContent.toString());
+            }
+            
+            JOptionPane.showMessageDialog(null, "Changes Saved");
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManageWorkerProfile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ManageWorkerProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static boolean verifyAvailability(String pID){
+        String filepath = "SalesOrder.txt";
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line;
+            
+            while((line = br.readLine()) != null){
+                if(!line.contains(pID)){
+                    return true;
+                }
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManageWorkerProfile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ManageWorkerProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
     
     /**
@@ -223,19 +279,19 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         lbPassword = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        tfPID = new javax.swing.JTextField();
-        tfUsername = new javax.swing.JTextField();
-        tfEmail = new javax.swing.JTextField();
-        tfContact = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        tfPassword = new javax.swing.JPasswordField();
-        tfAge = new javax.swing.JTextField();
-        tfGender = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         lbSelect = new javax.swing.JLabel();
         cbSelect = new javax.swing.JComboBox<>();
         btEdit = new javax.swing.JButton();
         tfLevel = new javax.swing.JTextField();
+        tfPassword = new javax.swing.JTextField();
+        tfAge = new javax.swing.JTextField();
+        tfGender = new javax.swing.JTextField();
+        tfContact = new javax.swing.JTextField();
+        tfPID = new javax.swing.JTextField();
+        tfUsername = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Worker Profile");
@@ -363,58 +419,6 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         mainPanel.add(jLabel8, gridBagConstraints);
 
-        tfPID.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfPID.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfPID.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfPID.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfPID, gridBagConstraints);
-
-        tfUsername.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfUsername.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfUsername.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfUsername.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfUsername, gridBagConstraints);
-
-        tfEmail.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfEmail.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfEmail.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfEmail.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfEmail, gridBagConstraints);
-
-        tfContact.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfContact.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfContact.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfContact.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfContact, gridBagConstraints);
-
         jLabel1.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
         jLabel1.setText("Level:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -422,44 +426,6 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         mainPanel.add(jLabel1, gridBagConstraints);
-
-        tfPassword.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfPassword.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfPassword.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfPassword, gridBagConstraints);
-
-        tfAge.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfAge.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfAge.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfAge.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfAge, gridBagConstraints);
-
-        tfGender.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
-        tfGender.setMinimumSize(new java.awt.Dimension(100, 35));
-        tfGender.setPreferredSize(new java.awt.Dimension(100, 30));
-        tfGender.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
-        mainPanel.add(tfGender, gridBagConstraints);
 
         jPanel6.setBackground(new java.awt.Color(204, 255, 255));
         jPanel6.setMinimumSize(new java.awt.Dimension(370, 50));
@@ -497,7 +463,11 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         mainPanel.add(btEdit, gridBagConstraints);
 
+        tfLevel.setEditable(false);
         tfLevel.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfLevel.setFocusable(false);
+        tfLevel.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfLevel.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
@@ -506,6 +476,104 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         gridBagConstraints.ipady = 15;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
         mainPanel.add(tfLevel, gridBagConstraints);
+
+        tfPassword.setEditable(false);
+        tfPassword.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfPassword.setFocusable(false);
+        tfPassword.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfPassword.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfPassword, gridBagConstraints);
+
+        tfAge.setEditable(false);
+        tfAge.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfAge.setFocusable(false);
+        tfAge.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfAge.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfAge, gridBagConstraints);
+
+        tfGender.setEditable(false);
+        tfGender.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfGender.setFocusable(false);
+        tfGender.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfGender.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfGender, gridBagConstraints);
+
+        tfContact.setEditable(false);
+        tfContact.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfContact.setFocusable(false);
+        tfContact.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfContact.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfContact, gridBagConstraints);
+
+        tfPID.setEditable(false);
+        tfPID.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfPID.setFocusable(false);
+        tfPID.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfPID.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfPID, gridBagConstraints);
+
+        tfUsername.setEditable(false);
+        tfUsername.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
+        tfUsername.setFocusable(false);
+        tfUsername.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfUsername.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfUsername, gridBagConstraints);
+
+        tfEmail.setEditable(false);
+        tfEmail.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
+        tfEmail.setFocusable(false);
+        tfEmail.setMinimumSize(new java.awt.Dimension(100, 30));
+        tfEmail.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        mainPanel.add(tfEmail, gridBagConstraints);
 
         jPanel1.add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -525,11 +593,10 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean editable = !tfUsername.isEditable();
         setFieldEditable(editable);
-        JOptionPane.showMessageDialog(null,"The access level will only be Sales Person and Admin (case sensitve)");
         if(btEdit.getText().equals("Save")){
             
             // get all the new details except for Level and Personal ID
-            String newPassword = new String(tfPassword.getPassword());
+            String newPassword = tfPassword.getText();
             String newUsername = tfUsername.getText();
             String newPersonalID = tfPID.getText();
             String newEmail = tfEmail.getText();
@@ -541,12 +608,22 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
             
             // to prevent the new detail is empty
             if(!newPassword.isEmpty() && !newUsername.isEmpty() && !newEmail.isEmpty() && !newAge.isEmpty() && !newGender.isEmpty() && !newContact.isEmpty()){
-                String [] newRow = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact,accessLevel};
-                for(String info : newRow){
+                String [] newRows = {newUsername,newPassword,newPersonalID,newEmail,newAge,newGender,newContact,accessLevel};
+                for(String info : newRows){
                     System.out.println(info);
                 }
+                
+                boolean isAvailable = verifyAvailability(newPersonalID);
+                
+                if(isAvailable){
+                    JOptionPane.showMessageDialog(null,"The Personal ID is available");
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null,"The Personal ID is used, please re-input");
+                }
+                
                 try {
-                    updateDetails(newRow);
+                    updateAccountDetails(newRows);
                 } catch (IOException ex) {
                     Logger.getLogger(ManageWorkerProfile.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -556,6 +633,7 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
             
         }
         if(editable == true){
+            JOptionPane.showMessageDialog(null,"The access level will only be Sales Person and Admin (case sensitve)");
             btEdit.setText("Save");
         }else{
             btEdit.setText("Edit");
@@ -624,7 +702,7 @@ public class ManageWorkerProfile extends javax.swing.JFrame {
     private javax.swing.JTextField tfGender;
     private javax.swing.JTextField tfLevel;
     private javax.swing.JTextField tfPID;
-    private javax.swing.JPasswordField tfPassword;
+    private javax.swing.JTextField tfPassword;
     private javax.swing.JTextField tfUsername;
     // End of variables declaration//GEN-END:variables
 }
