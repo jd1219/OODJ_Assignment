@@ -9,8 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -73,12 +76,17 @@ public class generateStatusReport extends javax.swing.JFrame {
         cbStatus = new javax.swing.JComboBox<>();
         cbPID = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbReport = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Generate Status Report");
+        setMinimumSize(new java.awt.Dimension(770, 770));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(770, 660));
+        jPanel1.setPreferredSize(new java.awt.Dimension(770, 660));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
@@ -119,7 +127,27 @@ public class generateStatusReport extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 120, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 520));
+        tbReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sales Order ID", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbReport);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 560, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,8 +163,34 @@ public class generateStatusReport extends javax.swing.JFrame {
         // TODO add your handling code here:
         String spID = (String)cbPID.getSelectedItem();
         String status = (String)cbStatus.getSelectedItem();
+        DefaultTableModel model = (DefaultTableModel)tbReport.getModel();
+        
+        model.setRowCount(0); // to remove all the existing row
         
         System.out.println("ID : " + spID + " Status : " + status);
+        
+        String filepath = "SalesOrder.txt";
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line;
+            Set<String> uniqueSOIDs = new HashSet<>();
+            while((line = br.readLine()) != null){
+                String [] lines = line.split(",");
+                System.out.println(Arrays.toString(lines));
+                if(lines[0].startsWith(spID) && lines[lines.length - 1].equals(status) && lines.length > 0){
+                    if(!uniqueSOIDs.contains(lines[0])){
+                        uniqueSOIDs.add(lines[0]);
+                    
+                        model.addRow(new Object[]{lines[0],lines[lines.length - 1]});
+                    }
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(generateStatusReport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(generateStatusReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -182,5 +236,7 @@ public class generateStatusReport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbReport;
     // End of variables declaration//GEN-END:variables
 }

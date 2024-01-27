@@ -26,11 +26,7 @@ public class generateReport extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         generateReport.row = row;
         System.out.println("Generate Report: " + Arrays.toString(row));
-        
-        
     }
-        
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,8 +169,13 @@ public class generateReport extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        AdminPanel ap = new AdminPanel(generateReport.row);
-        ap.setVisible(true);
+        if(row[row.length - 1].equals("a")){
+            AdminPanel ap = new AdminPanel(generateReport.row);
+            ap.setVisible(true);
+        }else if(row[row.length - 1].equals("o")){
+            OfficerPanel op = new OfficerPanel(generateReport.row);
+            op.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

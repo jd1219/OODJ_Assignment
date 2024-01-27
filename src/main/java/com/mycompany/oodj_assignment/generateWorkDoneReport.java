@@ -11,8 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -75,6 +78,10 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         cbPID = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbReport = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        tfTotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Work Done Report");
@@ -117,7 +124,38 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         jLabel2.setText("Please Select : ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 110, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 570));
+        tbReport.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        tbReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sales Order ID", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbReport.setRowHeight(40);
+        jScrollPane1.setViewportView(tbReport);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 630, 380));
+
+        jLabel3.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        jLabel3.setText("Total :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 610, 80, -1));
+
+        tfTotal.setEditable(false);
+        tfTotal.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        tfTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(tfTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, 170, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -126,6 +164,54 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         // TODO add your handling code here:
         String salesPersonID = (String)cbPID.getSelectedItem();
         System.out.println(salesPersonID);
+        DefaultTableModel model = (DefaultTableModel)tbReport.getModel();
+        
+        String filepath = "SalesOrder.txt";
+        
+        
+        Map<String,Double> salesOrderTotals = new HashMap<>();
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line;
+            
+            while((line = br.readLine()) != null){
+                String[] lines = line.split(",");
+                if(lines[0].startsWith(salesPersonID) && (lines[lines.length - 1].equals("Closed") || lines[lines.length - 1].equals("Approved"))){
+                    // calculate the total
+                    double price = Double.parseDouble(lines[3]);
+                    double quantity = Double.parseDouble(lines[4]);
+                    double subTotal = price * quantity;
+                    
+                    // getting the Sales Order ID and save into Map
+                    String salesOrderID = lines[0];
+                    
+                    salesOrderTotals.put(salesOrderID,salesOrderTotals.getOrDefault(salesOrderID, 0.0) + subTotal);
+                }
+            }
+            
+            for(Map.Entry<String, Double> entry : salesOrderTotals.entrySet()){
+                String salesOrderID = entry.getKey();
+                double total  = entry.getValue();
+                model.addRow(new Object[]{salesOrderID,total});
+            }    
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(generateWorkDoneReport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(generateWorkDoneReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // update the total textField
+        
+        double sum = 0.00;
+        if(model.getRowCount() > 0){
+            for(int i = 0; i < model.getRowCount(); i++){
+                sum += Double.parseDouble(tbReport.getValueAt(i,1).toString());
+            }
+        }
+        
+        tfTotal.setText("RM " + sum);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -176,6 +262,10 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbReport;
+    private javax.swing.JTextField tfTotal;
     // End of variables declaration//GEN-END:variables
 }
