@@ -110,8 +110,10 @@ public class generateStatusReport extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, -1));
 
         cbStatus.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Approved", "Closed" }));
-        jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 120, 30));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unapproved", "Approved", "Closed" }));
+        cbStatus.setMinimumSize(new java.awt.Dimension(135, 32));
+        cbStatus.setPreferredSize(new java.awt.Dimension(135, 32));
+        jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 140, 30));
 
         cbPID.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
         jPanel1.add(cbPID, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 120, 30));

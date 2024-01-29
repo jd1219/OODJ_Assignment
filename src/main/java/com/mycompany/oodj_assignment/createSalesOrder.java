@@ -427,7 +427,7 @@ public class createSalesOrder extends javax.swing.JFrame {
                             bw.write("," + data);
                         }
                         
-                        bw.write(",Unapproved");
+                        bw.write(",In Progress,Unapproved");
                         bw.newLine();
                     }catch (IOException ex){
                         Logger.getLogger(createSalesOrder.class.getName()).log(Level.SEVERE, null, ex);

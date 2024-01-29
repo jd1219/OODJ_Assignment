@@ -7,41 +7,39 @@ package com.mycompany.oodj_assignment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author User
  */
-public class searchSalesOrder extends javax.swing.JFrame {
+public class OsearchSalesOrder extends javax.swing.JFrame {
 
     /**
-     * Creates new form searchSalesOrder
+     * Creates new form OsearchSalesOrder
      */
-    public searchSalesOrder() {
+    public OsearchSalesOrder() {
         initComponents();
     }
-
-    public static String[] row;
-    public String personalID;
     
-    public searchSalesOrder(String[] row) {
+    public static String[] row;
+    
+    public OsearchSalesOrder(String[] row) {
         initComponents();
-        searchSalesOrder.row = row;
-        System.out.println("Search Sales Order: "+ Arrays.toString(row));
-        SalesPerson sp = new SalesPerson(row[0],row[1],row[3],row[6],row[5],row[4],row[2]);
-        personalID = sp.getID();
         setLocationRelativeTo(null);
+        System.out.println("Officer Search Sales Order: " + row);
         tableInitialize();
         updateSOIDOptions();
         
@@ -54,13 +52,55 @@ public class searchSalesOrder extends javax.swing.JFrame {
         });
     }
     
-    
     private void tableInitialize(){
         cbSOID.setSelectedIndex(-1);
         productTable.getColumnModel().getColumn(0).setPreferredWidth(150); // Product ID
         productTable.getColumnModel().getColumn(1).setPreferredWidth(200); // Product
         productTable.getColumnModel().getColumn(2).setPreferredWidth(80);  // Price
         productTable.getColumnModel().getColumn(3).setPreferredWidth(80);  // Quantity
+    }
+    
+    private void updateTable(){
+        String SOID = (String)cbSOID.getSelectedItem();
+        System.out.println(SOID);
+        String filepath = "SalesOrder.txt";
+        DefaultTableModel model = (DefaultTableModel)productTable.getModel();
+        model.setRowCount(0);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+
+            String line;
+            List<String[]> productsSOID = new ArrayList<>();
+            while((line = br.readLine()) != null){
+                String[] lines = line.split(",");
+                if(lines[0].equals(SOID)){
+                    productsSOID.add(lines);
+                    switch (lines[lines.length - 1]) {
+                        case "Unapproved":
+                            btSet.setText("Set Approved");
+                            break;
+                        case "Approved":
+                            btSet.setText("Set Closed");
+                            break;
+                        case "Closed":
+                            btSet.setText("Set Closed");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            for(String[] product : productsSOID){
+                model.addRow(new Object[]{ product[1], product[2], product[3], product[4]});
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(removeSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(removeSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     private void updateSOIDOptions(){
@@ -74,7 +114,7 @@ public class searchSalesOrder extends javax.swing.JFrame {
             
             while((line = br.readLine()) != null){
                 String[] fields = line.split(",");
-                if (fields.length > 0 && fields[0].startsWith(personalID)){
+                if (fields.length > 0){
                     soidOptions.add(fields[0]);
                 }
             }
@@ -87,36 +127,6 @@ public class searchSalesOrder extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(removeSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    private void updateTable(){
-        String SOID = (String)cbSOID.getSelectedItem();
-        System.out.println(SOID);
-        String filepath = "SalesOrder.txt";
-        DefaultTableModel model = (DefaultTableModel)productTable.getModel();
-        model.setRowCount(0);
-        
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filepath));
-            
-            String line;
-            List<String[]> productsSOID = new ArrayList<>();
-            while((line = br.readLine()) != null){
-                String[] lines = line.split(",");
-                if(lines[0].equals(SOID)){
-                    productsSOID.add(lines);
-                }
-            }
-            
-            for(String[] product : productsSOID){
-                model.addRow(new Object[]{ product[1], product[2], product[3], product[4]});
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(removeSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(removeSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     
     /**
@@ -134,6 +144,7 @@ public class searchSalesOrder extends javax.swing.JFrame {
         cbSOID = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
+        btSet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Search Sales Order");
@@ -145,22 +156,21 @@ public class searchSalesOrder extends javax.swing.JFrame {
         btBack.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         btBack.setText("Back");
         btBack.setFocusPainted(false);
-        btBack.setFocusable(false);
         btBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btBackActionPerformed(evt);
             }
         });
-        jPanel1.add(btBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 40));
+        jPanel1.add(btBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 100, 40));
 
         lbTitle.setFont(new java.awt.Font("Segoe Print", 1, 36)); // NOI18N
-        lbTitle.setText("Search Sales Order");
-        jPanel1.add(lbTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+        lbTitle.setText("Modify Sales Order");
+        jPanel1.add(lbTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
-        cbSOID.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jPanel1.add(cbSOID, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 190, 50));
+        cbSOID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(cbSOID, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 190, 40));
 
-        productTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        productTable.setFont(new java.awt.Font("Segoe UI Historic", 0, 12)); // NOI18N
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -170,7 +180,7 @@ public class searchSalesOrder extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -179,9 +189,19 @@ public class searchSalesOrder extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(productTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 640, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 640, 360));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 817, 612));
+        btSet.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btSet.setText("Set Approve");
+        btSet.setFocusPainted(false);
+        btSet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSetActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btSet, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, 210, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -189,10 +209,45 @@ public class searchSalesOrder extends javax.swing.JFrame {
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        System.out.println(Arrays.toString(row));
-        salesManageSales sms = new salesManageSales(searchSalesOrder.row);
-        sms.setVisible(true);
+        OfficerPanel pso = new OfficerPanel(OsearchSalesOrder.row);
+        pso.setVisible(true);
     }//GEN-LAST:event_btBackActionPerformed
+
+    private void btSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSetActionPerformed
+        // TODO add your handling code here:
+        String filepath = "SalesOrder.txt";
+        String SOID = (String)cbSOID.getSelectedItem();
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line;
+            StringBuilder modifiedFileContent = new StringBuilder();
+
+            while((line = br.readLine()) != null){
+                String[] lines = line.split(",");
+                
+                if(lines[0].equals(SOID)){
+                    if(btSet.getText().equals("Set Approved")){
+                        line = line.replace(lines[lines.length - 1], "Approved");
+                    }else if(btSet.getText().equals("Set Closed")){
+                        line = line.replace(lines[lines.length - 1], "Closed");
+                    }
+                }
+                modifiedFileContent.append(line).append(System.lineSeparator());
+                    
+            }
+            try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))){
+                bw.write(modifiedFileContent.toString());
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(OsearchSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(OsearchSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JOptionPane.showMessageDialog(null,"Changes Saved!! Please Proceed");
+    }//GEN-LAST:event_btSetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,26 +266,27 @@ public class searchSalesOrder extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(searchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OsearchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(searchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OsearchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(searchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OsearchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(searchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OsearchSalesOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new searchSalesOrder().setVisible(true);
+                new OsearchSalesOrder().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBack;
+    private javax.swing.JButton btSet;
     private javax.swing.JComboBox<String> cbSOID;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

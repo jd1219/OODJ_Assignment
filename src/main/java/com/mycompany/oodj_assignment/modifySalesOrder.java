@@ -498,7 +498,7 @@ public class modifySalesOrder extends javax.swing.JFrame {
             for(int col = 0; col < colCount; col++){
                 rowData[col + 1] = model.getValueAt(tbrow, col);                
             }
-            rowData[5] = "Unapproved";
+            rowData[5] = "In Progress,Unapproved";
             rowDataList.add(rowData);
         }
         

@@ -44,20 +44,20 @@ public class OfficerPanel extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btManagePP = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btProcessSO = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btSubmitSales = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btCheckStatus = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btGeneratereport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Officer Panel");
-        setMinimumSize(new java.awt.Dimension(663, 529));
-        setPreferredSize(new java.awt.Dimension(663, 529));
+        setMinimumSize(new java.awt.Dimension(663, 569));
+        setPreferredSize(new java.awt.Dimension(663, 569));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -73,14 +73,14 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel6, java.awt.BorderLayout.WEST);
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel3.setMinimumSize(new java.awt.Dimension(663, 70));
-        jPanel3.setPreferredSize(new java.awt.Dimension(670, 70));
+        jPanel3.setMinimumSize(new java.awt.Dimension(663, 75));
+        jPanel3.setPreferredSize(new java.awt.Dimension(670, 75));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton6.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
@@ -102,6 +102,8 @@ public class OfficerPanel extends javax.swing.JFrame {
         jPanel1.add(jPanel3, java.awt.BorderLayout.NORTH);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setMinimumSize(new java.awt.Dimension(670, 100));
+        jPanel4.setPreferredSize(new java.awt.Dimension(670, 100));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -111,7 +113,7 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 71, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.SOUTH);
@@ -126,24 +128,26 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.EAST);
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setMinimumSize(new java.awt.Dimension(285, 394));
+        jPanel2.setPreferredSize(new java.awt.Dimension(500, 394));
         jPanel2.setLayout(new java.awt.GridLayout(9, 0));
 
-        jButton1.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton1.setText("Manage Personal Profile");
-        jButton1.setFocusPainted(false);
-        jButton1.setFocusable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btManagePP.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btManagePP.setText("Manage Personal Profile");
+        btManagePP.setFocusPainted(false);
+        btManagePP.setFocusable(false);
+        btManagePP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btManagePPActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(btManagePP);
 
         jPanel7.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -155,16 +159,21 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
+            .addGap(0, 39, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel7);
 
-        jButton2.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton2.setText("Process Sales Order");
-        jButton2.setFocusPainted(false);
-        jButton2.setFocusable(false);
-        jPanel2.add(jButton2);
+        btProcessSO.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btProcessSO.setText("Process Sales Order");
+        btProcessSO.setFocusPainted(false);
+        btProcessSO.setFocusable(false);
+        btProcessSO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessSOActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btProcessSO);
 
         jPanel8.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -176,16 +185,16 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
+            .addGap(0, 39, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel8);
 
-        jButton3.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton3.setText("Submit Sales");
-        jButton3.setFocusPainted(false);
-        jButton3.setFocusable(false);
-        jPanel2.add(jButton3);
+        btSubmitSales.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btSubmitSales.setText("Submit Sales");
+        btSubmitSales.setFocusPainted(false);
+        btSubmitSales.setFocusable(false);
+        jPanel2.add(btSubmitSales);
 
         jPanel9.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -197,16 +206,21 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
+            .addGap(0, 39, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel9);
 
-        jButton4.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton4.setText("Check Sales Product Status");
-        jButton4.setFocusPainted(false);
-        jButton4.setFocusable(false);
-        jPanel2.add(jButton4);
+        btCheckStatus.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btCheckStatus.setText("Check Sales Product Status");
+        btCheckStatus.setFocusPainted(false);
+        btCheckStatus.setFocusable(false);
+        btCheckStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCheckStatusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btCheckStatus);
 
         jPanel10.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -218,16 +232,16 @@ public class OfficerPanel extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
+            .addGap(0, 39, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel10);
 
-        jButton5.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton5.setText("Generate Report");
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jPanel2.add(jButton5);
+        btGeneratereport.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btGeneratereport.setText("Generate Report");
+        btGeneratereport.setFocusPainted(false);
+        btGeneratereport.setFocusable(false);
+        jPanel2.add(btGeneratereport);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -236,12 +250,12 @@ public class OfficerPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btManagePPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManagePPActionPerformed
         // TODO add your handling code here:
         setVisible(false);
         PersonalProfile pp = new PersonalProfile(OfficerPanel.row);
         pp.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btManagePPActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -249,6 +263,20 @@ public class OfficerPanel extends javax.swing.JFrame {
         Login lg = new Login();
         lg.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btProcessSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessSOActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        OsearchSalesOrder pso = new OsearchSalesOrder(OfficerPanel.row);
+        pso.setVisible(true);
+    }//GEN-LAST:event_btProcessSOActionPerformed
+
+    private void btCheckStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckStatusActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        SalesOrderStatus sos = new SalesOrderStatus(OfficerPanel.row);
+        sos.setVisible(true);
+    }//GEN-LAST:event_btCheckStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,11 +314,11 @@ public class OfficerPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btCheckStatus;
+    private javax.swing.JButton btGeneratereport;
+    private javax.swing.JButton btManagePP;
+    private javax.swing.JButton btProcessSO;
+    private javax.swing.JButton btSubmitSales;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
