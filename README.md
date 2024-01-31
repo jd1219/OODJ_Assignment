@@ -4,7 +4,6 @@ Admin :
 
 Officer : 
     Submit Sales (Invoice)
-    Generate Report
 
 System :
     Forget Password

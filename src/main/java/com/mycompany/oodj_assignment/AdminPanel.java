@@ -46,6 +46,8 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
+        btCreateStaff = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,7 +124,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_END);
 
-        jPanel6.setLayout(new java.awt.GridLayout(5, 0));
+        jPanel6.setLayout(new java.awt.GridLayout(7, 0));
 
         jButton2.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jButton2.setText("Manage Personal Profile");
@@ -145,7 +147,7 @@ public class AdminPanel extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 74, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel7);
@@ -171,10 +173,36 @@ public class AdminPanel extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 74, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel8);
+
+        btCreateStaff.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        btCreateStaff.setText("Create Staff");
+        btCreateStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCreateStaff.setFocusPainted(false);
+        btCreateStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreateStaffActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btCreateStaff);
+
+        jPanel9.setBackground(new java.awt.Color(204, 255, 255));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 52, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel9);
 
         jButton4.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jButton4.setText("Generate Report");
@@ -222,6 +250,13 @@ public class AdminPanel extends javax.swing.JFrame {
         gr.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btCreateStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateStaffActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        createWorker cw = new createWorker(AdminPanel.row);
+        cw.setVisible(true);
+    }//GEN-LAST:event_btCreateStaffActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,6 +293,7 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCreateStaff;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -271,5 +307,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }

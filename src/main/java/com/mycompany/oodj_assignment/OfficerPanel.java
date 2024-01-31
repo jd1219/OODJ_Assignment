@@ -84,7 +84,7 @@ public class OfficerPanel extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton6.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        jButton6.setText("Back");
+        jButton6.setText("Logout");
         jButton6.setFocusPainted(false);
         jButton6.setFocusable(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class OfficerPanel extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 40));
+        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe Print", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -241,6 +241,11 @@ public class OfficerPanel extends javax.swing.JFrame {
         btGeneratereport.setText("Generate Report");
         btGeneratereport.setFocusPainted(false);
         btGeneratereport.setFocusable(false);
+        btGeneratereport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGeneratereportActionPerformed(evt);
+            }
+        });
         jPanel2.add(btGeneratereport);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -277,6 +282,13 @@ public class OfficerPanel extends javax.swing.JFrame {
         SalesOrderStatus sos = new SalesOrderStatus(OfficerPanel.row);
         sos.setVisible(true);
     }//GEN-LAST:event_btCheckStatusActionPerformed
+
+    private void btGeneratereportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGeneratereportActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        generateReport gr = new generateReport(OfficerPanel.row);
+        gr.setVisible(true);
+    }//GEN-LAST:event_btGeneratereportActionPerformed
 
     /**
      * @param args the command line arguments

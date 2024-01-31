@@ -10,7 +10,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -82,6 +88,8 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         tbReport = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         tfTotal = new javax.swing.JTextField();
+        tfDate = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Work Done Report");
@@ -130,11 +138,11 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sales Order ID", "Total"
+                "Sales Order ID", "Date", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,12 +156,21 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jLabel3.setText("Total :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 610, 80, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 600, 80, -1));
 
         tfTotal.setEditable(false);
         tfTotal.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         tfTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.add(tfTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, 170, 50));
+        jPanel1.add(tfTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 590, 170, 50));
+
+        tfDate.setEditable(false);
+        tfDate.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        tfDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(tfDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 170, 50));
+
+        jLabel4.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        jLabel4.setText("Date :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 600, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 740));
 
@@ -166,10 +183,23 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         System.out.println(salesPersonID);
         DefaultTableModel model = (DefaultTableModel)tbReport.getModel();
         
+        // to initialize the whole page
+        tfTotal.setText("");
+        tfDate.setText("");
+        model.setRowCount(0);
+        
+        // set the current date (the date generate the report)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDate = now.format(formatter);
+        tfDate.setText(formattedDate);
+        
+        DecimalFormat currencyFormat = new DecimalFormat("0.00");
+        
         String filepath = "SalesOrder.txt";
         
         
-        Map<String,Double> salesOrderTotals = new HashMap<>();
+        Map<String,SalesOrder> salesOrderTotals = new HashMap<>();
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(filepath));
@@ -185,15 +215,20 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
                     
                     // getting the Sales Order ID and save into Map
                     String salesOrderID = lines[0];
+                    String date = lines[lines.length - 3];
                     
-                    salesOrderTotals.put(salesOrderID,salesOrderTotals.getOrDefault(salesOrderID, 0.0) + subTotal);
+                    SalesOrder info = new SalesOrder(subTotal,date);
+                    salesOrderTotals.put(salesOrderID,info);
                 }
             }
             
-            for(Map.Entry<String, Double> entry : salesOrderTotals.entrySet()){
+            for(Map.Entry<String, SalesOrder> entry : salesOrderTotals.entrySet()){
                 String salesOrderID = entry.getKey();
-                double total  = entry.getValue();
-                model.addRow(new Object[]{salesOrderID,total});
+                SalesOrder info = entry.getValue();
+                double total = info.getTotal();
+                String date = info.getDate();
+                
+                model.addRow(new Object[]{salesOrderID,date,currencyFormat.format(total)});
             }    
         } catch (FileNotFoundException ex) {
             Logger.getLogger(generateWorkDoneReport.class.getName()).log(Level.SEVERE, null, ex);
@@ -206,17 +241,18 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
         double sum = 0.00;
         if(model.getRowCount() > 0){
             for(int i = 0; i < model.getRowCount(); i++){
-                sum += Double.parseDouble(tbReport.getValueAt(i,1).toString());
+                sum += Double.parseDouble(tbReport.getValueAt(i,2).toString());
             }
         }
         
-        tfTotal.setText("RM " + sum);
+        tfTotal.setText("RM " + currencyFormat.format(sum));
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        System.out.println(generateWorkDoneReport.row);
         generateReport gr = new generateReport(generateWorkDoneReport.row);
         gr.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -263,9 +299,11 @@ public class generateWorkDoneReport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbReport;
+    private javax.swing.JTextField tfDate;
     private javax.swing.JTextField tfTotal;
     // End of variables declaration//GEN-END:variables
 }

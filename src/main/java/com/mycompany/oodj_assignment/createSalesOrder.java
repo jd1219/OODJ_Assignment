@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -402,6 +404,7 @@ public class createSalesOrder extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel)orderTable.getModel();
         String filepath = "SalesOrder.txt";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Object[] rowData;
         String nextSOID = null;
         // loop through the whole table to get the rowData
@@ -421,13 +424,16 @@ public class createSalesOrder extends javax.swing.JFrame {
                         nextSOID = generateNextSOID(personalID);
                         System.out.println("Sales ID:" + nextSOID);
 
+                        LocalDateTime now = LocalDateTime.now();
+                        String formattedDate = now.format(formatter);
+                        
                         bw.write(nextSOID);
 
                         for(Object data : rowData){
                             bw.write("," + data);
                         }
                         
-                        bw.write(",In Progress,Unapproved");
+                        bw.write("," + formattedDate +",In Progress,Unapproved");
                         bw.newLine();
                     }catch (IOException ex){
                         Logger.getLogger(createSalesOrder.class.getName()).log(Level.SEVERE, null, ex);
