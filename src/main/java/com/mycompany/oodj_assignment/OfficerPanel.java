@@ -194,6 +194,11 @@ public class OfficerPanel extends javax.swing.JFrame {
         btSubmitSales.setText("Submit Sales");
         btSubmitSales.setFocusPainted(false);
         btSubmitSales.setFocusable(false);
+        btSubmitSales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSubmitSalesActionPerformed(evt);
+            }
+        });
         jPanel2.add(btSubmitSales);
 
         jPanel9.setBackground(new java.awt.Color(204, 255, 255));
@@ -289,6 +294,13 @@ public class OfficerPanel extends javax.swing.JFrame {
         generateReport gr = new generateReport(OfficerPanel.row);
         gr.setVisible(true);
     }//GEN-LAST:event_btGeneratereportActionPerformed
+
+    private void btSubmitSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSubmitSalesActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        salesInvoice si = new salesInvoice(OfficerPanel.row);
+        si.setVisible(true);
+    }//GEN-LAST:event_btSubmitSalesActionPerformed
 
     /**
      * @param args the command line arguments

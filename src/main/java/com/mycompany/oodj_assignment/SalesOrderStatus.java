@@ -138,6 +138,11 @@ public class SalesOrderStatus extends javax.swing.JFrame {
         jPanel1.add(lbTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
         cbSOID.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        cbSOID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSOIDActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbSOID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 170, 40));
 
         tfStatus.setEditable(false);
@@ -219,6 +224,10 @@ public class SalesOrderStatus extends javax.swing.JFrame {
         OfficerPanel op = new OfficerPanel(SalesOrderStatus.row);
         op.setVisible(true);
     }//GEN-LAST:event_btBackActionPerformed
+
+    private void cbSOIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSOIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSOIDActionPerformed
 
     /**
      * @param args the command line arguments
