@@ -4,6 +4,8 @@
  */
 package com.mycompany.oodj_assignment;
 
+import java.util.Arrays;
+
 /**
  *
  * @author User
@@ -23,7 +25,7 @@ public class OfficerPanel extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         OfficerPanel.row = row;
-        System.out.println("Officer Panel: " + row);
+        System.out.println("Officer Panel: " + Arrays.toString(row));
     }
     
     

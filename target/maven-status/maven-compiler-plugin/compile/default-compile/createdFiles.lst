@@ -17,6 +17,7 @@ com\mycompany\oodj_assignment\searchSalesOrder$1.class
 com\mycompany\oodj_assignment\createSalesOrder$3.class
 com\mycompany\oodj_assignment\OsearchSalesOrder.class
 com\mycompany\oodj_assignment\removeSalesOrder$5.class
+com\mycompany\oodj_assignment\SalesListOrder$3.class
 com\mycompany\oodj_assignment\ManageWorkerProfile$3.class
 com\mycompany\oodj_assignment\OfficerPanel$1.class
 com\mycompany\oodj_assignment\SalesOrderStatus$1.class
@@ -36,7 +37,6 @@ com\mycompany\oodj_assignment\AdminPanel$3.class
 com\mycompany\oodj_assignment\salesInvoice$2.class
 com\mycompany\oodj_assignment\salesManageSales$1.class
 com\mycompany\oodj_assignment\generateWorkDoneReport$1.class
-com\mycompany\oodj_assignment\Login$4.class
 com\mycompany\oodj_assignment\PersonalProfile$1.class
 com\mycompany\oodj_assignment\searchSalesOrder$4.class
 com\mycompany\oodj_assignment\modifySalesOrder$5.class

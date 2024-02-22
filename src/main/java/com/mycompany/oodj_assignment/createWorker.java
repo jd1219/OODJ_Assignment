@@ -31,6 +31,7 @@ public class createWorker extends javax.swing.JFrame {
     public static String[] row;
     
     public createWorker(String[] row) {
+        createWorker.row = row;
         initComponents();
         setLocationRelativeTo(null);
         System.out.println("Create Worker: " + Arrays.toString(row));
@@ -304,7 +305,7 @@ public class createWorker extends javax.swing.JFrame {
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        System.out.println(createWorker.row);
+        System.out.println(Arrays.toString(createWorker.row));
         AdminPanel ap = new AdminPanel(createWorker.row);
         ap.setVisible(true);
     }//GEN-LAST:event_btBackActionPerformed

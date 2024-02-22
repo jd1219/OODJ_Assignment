@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +38,10 @@ public class OsearchSalesOrder extends javax.swing.JFrame {
     public static String[] row;
     
     public OsearchSalesOrder(String[] row) {
+        OsearchSalesOrder.row = row;
         initComponents();
         setLocationRelativeTo(null);
-        System.out.println("Officer Search Sales Order: " + row);
+        System.out.println("Officer Search Sales Order: " + Arrays.toString(row));
         tableInitialize();
         updateSOIDOptions();
         

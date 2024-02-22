@@ -104,6 +104,11 @@ public class SalesListOrder extends javax.swing.JFrame {
         btBack.setText("Back");
         btBack.setFocusPainted(false);
         btBack.setFocusable(false);
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
         jPanel1.add(btBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe Print", 1, 24)); // NOI18N
@@ -137,6 +142,13 @@ public class SalesListOrder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        SalesPanel sp = new SalesPanel(SalesListOrder.row);
+        sp.setVisible(true);
+    }//GEN-LAST:event_btBackActionPerformed
 
     /**
      * @param args the command line arguments
