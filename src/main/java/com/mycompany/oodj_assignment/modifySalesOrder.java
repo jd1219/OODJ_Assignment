@@ -77,10 +77,10 @@ public class modifySalesOrder extends javax.swing.JFrame {
                     if (selectedRowIndex != -1) {
                         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
 
-                        Object productID = model.getValueAt(selectedRowIndex, 0); 
-                        Object productName = model.getValueAt(selectedRowIndex, 1); 
+                        Object productID = model.getValueAt(selectedRowIndex, 1); 
+                        Object productName = model.getValueAt(selectedRowIndex, 0); 
                         Object productPrice = model.getValueAt(selectedRowIndex, 2); 
-                        Object productQuantity = model.getValueAt(selectedRowIndex, 3); 
+                        Object productQuantity = model.getValueAt(selectedRowIndex, 3);
                         
                         cbProduct.setSelectedItem(productID.toString() + " " + productName.toString());
                         tfPrice.setText(productPrice.toString());
@@ -473,8 +473,8 @@ public class modifySalesOrder extends javax.swing.JFrame {
         String editPrice = tfPrice.getText();
         String editQuantity = spinQuantity.getValue().toString();
         
-        model.setValueAt(editID,selectedRow,0);
-        model.setValueAt(editProduct,selectedRow,1);
+        model.setValueAt(editID,selectedRow,1);
+        model.setValueAt(editProduct,selectedRow,0);
         model.setValueAt(editPrice,selectedRow,2);
         model.setValueAt(editQuantity,selectedRow,3);
         

@@ -8,7 +8,9 @@ package com.mycompany.oodj_assignment;
  *
  * @author User
  */
+// Inheritance
 public class SalesPerson extends User{
+    // Encapsulation
     private String username;
     private String password;
     private String email;
